@@ -28,46 +28,23 @@ export default function Home({ products }: HomeProps) {
 
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
-      <Product className="keen-slider__slide">
-        <Image src={camiseta} alt="" />
+      {products.map((product) => {
+        return (
+          <Product key={product.id} className="keen-slider__slide">
+            <Image src={product.imageURL} alt="" width={520} height={480} />
 
-        <footer>
-          <strong>Camiseta x</strong>
-          <span>R$ 79,00</span>
-        </footer>
-      </Product>
-
-      <Product className="keen-slider__slide">
-        <Image src={camiseta} alt="" />
-
-        <footer>
-          <strong>Camiseta x</strong>
-          <span>R$ 79,00</span>
-        </footer>
-      </Product>
-
-      <Product className="keen-slider__slide">
-        <Image src={camiseta} alt="" />
-
-        <footer>
-          <strong>Camiseta x</strong>
-          <span>R$ 79,00</span>
-        </footer>
-      </Product>
-
-      <Product className="keen-slider__slide">
-        <Image src={camiseta} alt="" />
-
-        <footer>
-          <strong>Camiseta x</strong>
-          <span>R$ 79,00</span>
-        </footer>
-      </Product>
+            <footer>
+              <strong>{product.name}</strong>
+              <span>{product.price}</span>
+            </footer>
+          </Product>
+        )
+      })}
     </HomeContainer>
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const response = await stripe.products.list({
     expand: ['data.default_price'],
   })

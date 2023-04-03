@@ -1,3 +1,3 @@
-export default async function Success() {
+export default function Success() {
   return <h1>parabens</h1>
 }
