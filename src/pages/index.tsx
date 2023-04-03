@@ -6,8 +6,19 @@ import { useKeenSlider } from 'keen-slider/react'
 import camiseta from '../assets/camisa2.png'
 
 import 'keen-slider/keen-slider.min.css'
+import { stripe } from '@/lib/stripe'
+import Stripe from 'stripe'
 
-export default function Home() {
+interface HomeProps {
+  products: {
+    id: string
+    name: string
+    imageURL: string
+    price: number
+  }[]
+}
+
+export default function Home({ products }: HomeProps) {
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
@@ -54,4 +65,27 @@ export default function Home() {
       </Product>
     </HomeContainer>
   )
+}
+
+export async function getServerSideProps() {
+  const response = await stripe.products.list({
+    expand: ['data.default_price'],
+  })
+
+  const products = response.data.map((product) => {
+    const price = product.default_price as Stripe.Price
+
+    return {
+      id: product.id,
+      name: product.name,
+      imageURL: product.images[0],
+      price: (price.unit_amount as number) / 100,
+    }
+  })
+
+  return {
+    props: {
+      products,
+    },
+  }
 }
