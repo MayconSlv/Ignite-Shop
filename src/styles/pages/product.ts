@@ -51,6 +51,7 @@ export const ProductDetails = styled('div', {
   },
 
   button: {
+    fontFamily: 'Roboto',
     marginTop: 'auto',
     backgroundColor: '$green500',
     border: 0,
