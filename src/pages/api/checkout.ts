@@ -7,6 +7,14 @@ export default async function hadler(
 ) {
   const { priceId } = req.body
 
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed.' })
+  }
+
+  if (!priceId) {
+    return res.status(400).json({ error: 'Price not found.' })
+  }
+
   const successUrl = 'http://localhost:3000/success'
   const cancelUrl = 'http://localhost:3000/'
 
