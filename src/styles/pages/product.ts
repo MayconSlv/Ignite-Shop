@@ -51,7 +51,7 @@ export const ProductDetails = styled('div', {
   },
 
   button: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Roboto, Arial',
     marginTop: 'auto',
     backgroundColor: '$green500',
     border: 0,
@@ -62,7 +62,12 @@ export const ProductDetails = styled('div', {
     fontWeight: 'bold',
     fontSize: '$md',
 
-    '&:hover': {
+    '&:disabled': {
+      opacity: 0.5,
+      cursor: 'not-allowed',
+    },
+
+    '&:not(:disabled):hover': {
       backgroundColor: '$green300',
     },
   },
