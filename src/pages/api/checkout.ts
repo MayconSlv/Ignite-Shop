@@ -5,7 +5,7 @@ export default async function hadler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const priceId = 'price_1MpyXCKdQvIYVUFKZqoh6O9o'
+  const { priceId } = req.body
 
   const successUrl = 'http://localhost:3000/success'
   const cancelUrl = 'http://localhost:3000/'
