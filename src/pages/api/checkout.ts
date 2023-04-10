@@ -5,14 +5,14 @@ export default async function hadler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const priceId = ''
+  const priceId = 'price_1MpyXCKdQvIYVUFKZqoh6O9o'
 
-  const successUrl = `${process.env.NEXT_URL}/success`
-  const cancelUrl = `${process.env.NEXT_URL}`
+  const successUrl = 'http://localhost:3000/success'
+  const cancelUrl = 'http://localhost:3000/'
 
-  const checkout = await stripe.checkout.sessions.create({
-    cancel_url: successUrl,
-    success_url: cancelUrl,
+  const checkoutSession = await stripe.checkout.sessions.create({
+    success_url: successUrl,
+    cancel_url: cancelUrl,
     mode: 'payment',
     line_items: [
       {
@@ -20,5 +20,9 @@ export default async function hadler(
         quantity: 1,
       },
     ],
+  })
+
+  return res.status(201).json({
+    checkoutUrl: checkoutSession.url,
   })
 }
